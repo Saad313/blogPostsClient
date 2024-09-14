@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners'; // Import the spinner
 
 function BlogForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [author, setAuthor] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,13 +16,14 @@ function BlogForm() {
   useEffect(() => {
     if (id) {
       setIsEditing(true);
+      setLoading(true);
       axios.get(`https://blogpostsapi-1ui5.onrender.com/api/blogs/${id}`)
         .then(response => {
           setTitle(response.data.title);
           setContent(response.data.content);
           setAuthor(response.data.author);
         })
-        .catch(error => console.error('Error fetching blog:', error));
+        .catch(error => console.error('Error fetching blog:', error)).finally(()=> setLoading(false));
     }
   }, [id]);
 
@@ -30,23 +33,28 @@ function BlogForm() {
     const blogData = { title, content, author };
 
     if (isEditing) {
+    setLoading(true);
       axios.put(`https://blogpostsapi-1ui5.onrender.com/api/blogs/${id}`, blogData)
         .then(() => navigate('/'))
-        .catch(error => console.error('Error updating blog:', error));
+        .catch(error => console.error('Error updating blog:', error)).finally(()=> setLoading(false));
     } else {
+        setLoading(true);
       axios.post('https://blogpostsapi-1ui5.onrender.com/api/blogs', blogData)
         .then(() => navigate('/'))
-        .catch(error => console.error('Error creating blog:', error));
+        .catch(error => console.error('Error creating blog:', error)).finally(()=> setLoading(false));
     }
   };
 
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this blog post?')) {
+        setLoading(true);
       axios.delete(`https://blogpostsapi-1ui5.onrender.com/api/blogs/${id}`)
         .then(() => navigate('/'))
-        .catch(error => console.error('Error deleting blog:', error));
+        .catch(error => console.error('Error deleting blog:', error)).finally(()=> setLoading(false));
     }
   };
+
+  if (loading) return <div className="text-center py-6"><ClipLoader color="#3498db" size={36} /></div>; // Use spinner
 
   return (
     <div className="max-w-2xl mx-auto p-4">

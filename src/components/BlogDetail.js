@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners'; // Import the spinner
 
 function BlogDetail() {
   const { id } = useParams();
@@ -13,7 +14,7 @@ function BlogDetail() {
       .catch(error => console.error('Error fetching blog:', error));
   }, [id]);
 
-  if (!blog) return <p className="text-center text-gray-500">Loading...</p>;
+  if (!blog) return <div className="text-center py-6"><ClipLoader color="#3498db" size={36} /></div>; // Use spinner
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
