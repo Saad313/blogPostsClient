@@ -14,7 +14,7 @@ function BlogForm() {
   useEffect(() => {
     if (id) {
       setIsEditing(true);
-      axios.get(`http://localhost:5000/api/blogs/${id}`)
+      axios.get(`https://blogpostsapi-1ui5.onrender.com/api/blogs/${id}`)
         .then(response => {
           setTitle(response.data.title);
           setContent(response.data.content);
@@ -30,11 +30,11 @@ function BlogForm() {
     const blogData = { title, content, author };
 
     if (isEditing) {
-      axios.put(`http://localhost:5000/api/blogs/${id}`, blogData)
+      axios.put(`https://blogpostsapi-1ui5.onrender.com/api/blogs/${id}`, blogData)
         .then(() => navigate('/'))
         .catch(error => console.error('Error updating blog:', error));
     } else {
-      axios.post('http://localhost:5000/api/blogs', blogData)
+      axios.post('https://blogpostsapi-1ui5.onrender.com/api/blogs', blogData)
         .then(() => navigate('/'))
         .catch(error => console.error('Error creating blog:', error));
     }
@@ -42,7 +42,7 @@ function BlogForm() {
 
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this blog post?')) {
-      axios.delete(`http://localhost:5000/api/blogs/${id}`)
+      axios.delete(`https://blogpostsapi-1ui5.onrender.com/api/blogs/${id}`)
         .then(() => navigate('/'))
         .catch(error => console.error('Error deleting blog:', error));
     }

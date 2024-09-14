@@ -8,7 +8,7 @@ function BlogDetail() {
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/blogs/${id}`)
+    axios.get(`https://blogpostsapi-1ui5.onrender.com/api/blogs/${id}`)
       .then(response => setBlog(response.data))
       .catch(error => console.error('Error fetching blog:', error));
   }, [id]);
