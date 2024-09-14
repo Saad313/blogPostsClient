@@ -13,27 +13,6 @@ function BlogList() {
   }, []);
 
   return (
-    // <div className="max-w-4xl mx-auto p-6">
-    //   <h1 className="text-3xl font-bold mb-4">Blog List</h1>
-    //   <Link 
-    //     to="/create" 
-    //     className="inline-block px-4 py-2 mb-4 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    //   >
-    //     Create New Blog
-    //   </Link>
-    //   <ul className="list-disc pl-5 space-y-2">
-    //     {blogs.map(blog => (
-    //       <li key={blog._id} className="text-lg">
-    //         <Link 
-    //           to={`/blogs/${blog._id}`} 
-    //           className="text-blue-600 hover:underline"
-    //         >
-    //           {blog.title}
-    //         </Link>
-    //       </li>
-    //     ))}
-    //   </ul>
-    // </div>
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Blog List</h1>
